@@ -1,30 +1,22 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from Machine import Machine
+import random
+
+# Nombre machines
+N = 15
+machines = [Machine('Node' + str(i), 'Réseau' + str(i)) for i in range(N)]
+print(machines[N//2])
 
 nodes = [
-    (1, {"color": "red"}),
-    (2, {"color": "green"}),
-    (3, {"color": "green"}),
-    (4, {"color": "green"}),
-    (5, {"color": "green"}),
+    (machines[i], {"color": "red"}) for i in range(N)
 ]
 
 edges = [
-    (1, 5),
-    (1, 2),
-    (2, 5),
-    (4, 5),
-    (2, 5),
-    (3, 4),
+    (machines[random.randint(0, N-1)], machines[random.randint(0, N-1)]) for i in range(5*N)
 ]
 
 G = nx.Graph()
-G.add_nodes_from(nodes)
-G.add_edges_from(edges)
-print(list(G.nodes))
-print(list(G.edges))
-
-
-# nx.draw_shell(G, nlist=[range(5, 10), range(5)], with_labels=True, font_weight='bold')
+G.add_nodes_from(nodes), G.add_edges_from(edges)
 nx.draw(G, with_labels=True, font_weight='bold')
 plt.show()
